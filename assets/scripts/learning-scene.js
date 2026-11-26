@@ -37,12 +37,15 @@
     const loader = new IntersectionObserver(entries => {
       if (!entries.some(entry => entry.isIntersecting)) return;
       loader.disconnect();
-      import('./learning-three.mjs').then(module => module.createLearningScene({ demo, toggle, steps })).then(scene => {
+      import('./learning-three.mjs').then(module => module.createLearningScene({
+        demo, toggle, steps,
+        onFallback() { three = null; setOpen(demo.classList.contains('is-open')); }
+      })).then(scene => {
         if (!scene) return;
         three = scene;
         three.select(selected);
         setOpen(demo.classList.contains('is-open'));
-      }).catch(() => { demo.classList.remove('has-webgl'); });
+      }).catch(() => { demo.classList.remove('has-webgl'); demo.querySelector('.learning-webgl')?.remove(); });
     }, { rootMargin: '300px' });
     loader.observe(demo);
   }
