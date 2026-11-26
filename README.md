@@ -32,7 +32,7 @@ Le lecteur YouTube est chargé uniquement après accord. Le choix peut être mod
 
 ## État de livraison
 
-Version vérifiée localement sur ordinateur et mobile. Ce dépôt contient les fichiers du site ; il ne configure pas d’hébergement. Les informations légales relatives à l’adresse professionnelle complète, à l’hébergeur retenu et au médiateur désigné restent à compléter avant exploitation publique.
+Version vérifiée localement sur ordinateur et mobile. Le site est publié avec GitHub Pages depuis `main` à la racine du dépôt. Le fichier `CNAME` réserve `pavielalexandre.com` pour ce site. Le pointage DNS et le certificat HTTPS doivent être validés dans les réglages Pages avant de considérer le domaine comme raccordé. Les informations légales relatives à l’adresse professionnelle complète, à l’hébergeur retenu et au médiateur désigné restent à compléter avant exploitation publique.
 
 ## Licence
 
