@@ -28,7 +28,7 @@
   function schedule() {
     clearTimeout(timer);
     if (grid || touch || !motion.matches || !visible || paused || hovered || (focused && !resumeWhileFocused) || busy || detailsOpen() || document.hidden) return;
-    timer = setTimeout(() => change(active + 1, false), 4200);
+    timer = setTimeout(() => change(active + 1, false), 2200);
   }
   function layout(announce = false) {
     title.setAttribute('aria-live', announce ? 'polite' : 'off');
