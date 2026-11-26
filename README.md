@@ -1,6 +1,6 @@
 # Alexandre Paviel — Formation et conseil IA
 
-Site vitrine d’Alexandre Paviel, formateur et consultant IA à La Réunion. Version HTML, CSS et JavaScript native, sans dépendance JavaScript externe et sans étape de compilation.
+Site vitrine d’Alexandre Paviel, formateur et consultant IA à La Réunion. Version HTML, CSS et JavaScript native, sans dépendance JavaScript externe. Un build statique léger prépare les fichiers publiables.
 
 ## Lancer en local
 
@@ -11,6 +11,18 @@ python3 -m http.server 8765 --bind 127.0.0.1
 ```
 
 Ouvrir [le site local](http://127.0.0.1:8765/index.html).
+
+## Build et GitHub Actions
+
+Avec Node.js 24 ou supérieur :
+
+```sh
+npm run build
+```
+
+Aucune installation de dépendances n’est nécessaire. Le build prépare `dist/` à partir des pages et médias suivis par Git, vérifie la syntaxe des scripts JavaScript externes et inline, et résout les fichiers locaux requis par le HTML et le CSS. Il ne lance pas les scripts dans un navigateur et ne teste pas les services externes.
+
+L’Action **Compilation** exécute uniquement ce build sur les PR vers `main`, sur les push vers `main` et à la demande. Un seul job, délai maximal de cinq minutes, sans publication ni déploiement. La publication GitHub Pages existante reste indépendante de cette vérification.
 
 ## Fichiers
 
@@ -25,6 +37,8 @@ Ouvrir [le site local](http://127.0.0.1:8765/index.html).
 ## Comportements
 
 Les huit offres sont présentées en éventail avec commandes manuelles, rotation automatique et pause. Une grille complète reste accessible. Les animations respectent la préférence de réduction des mouvements.
+
+Sur écran tactile, un balayage horizontal sur la carte passe à l’offre suivante ou précédente. Le défilement vertical et le zoom restent natifs. Le geste est désactivé dans la grille et pendant la lecture des détails ; un simple appui conserve l’ouverture « En savoir plus ».
 
 Les treize outils défilent horizontalement, avec des commandes accessibles et une pause. La FAQ comporte cinq questions courtes. L’infographie des trois parcours RS peut être agrandie.
 
