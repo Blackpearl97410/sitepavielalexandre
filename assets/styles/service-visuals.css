@@ -1,0 +1,41 @@
+/* Animate the complete visual so embedded text stays inside the frame. */
+#capabilities .service__media.visual-motion {
+  --visual-rx: 0deg;
+  --visual-ry: 0deg;
+  --visual-lift: 0px;
+  animation: none;
+  clip-path: none;
+  opacity: 1;
+  transform: perspective(1100px) translateY(var(--visual-lift)) rotateX(var(--visual-rx)) rotateY(var(--visual-ry));
+  transform-origin: center;
+  transition: transform 360ms cubic-bezier(.2,.7,.3,1), opacity 650ms ease, box-shadow 360ms ease;
+}
+#capabilities .service__media.visual-motion img {
+  animation: none;
+  transform: none;
+  translate: none;
+  scale: 1;
+}
+#capabilities .service__media.visual-motion:not(.is-revealed) {
+  opacity: 0;
+  transform: perspective(1100px) translateY(22px) rotateX(2deg);
+}
+#capabilities .service__media.visual-motion:focus-within {
+  outline: 3px solid #0b7f74;
+  outline-offset: 4px;
+}
+@media (hover: hover) and (pointer: fine) {
+  #capabilities .service__media.visual-motion.is-revealed:hover {
+    --visual-lift: -4px;
+    box-shadow: 0 16px 30px -18px rgb(17 24 32 / .4);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #capabilities .service__media.visual-motion,
+  #capabilities .service__media.visual-motion:not(.is-revealed) {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    box-shadow: none;
+  }
+}

@@ -15,9 +15,8 @@ Toutes les informations ci-dessous reprennent le contenu publié sur https://pav
 - [Agent IA](https://pavielalexandre.com/#work) : agent conçu pour une tâche précise, avec des accès et des actions cadrés.
 - [Workflows et automatisation](https://pavielalexandre.com/#work) : relier des outils et automatiser des tâches répétitives, avec des contrôles.
 
-## Méthode
+## Questions fréquentes
 
-- [La méthode en quatre étapes](https://pavielalexandre.com/#method) : diagnostic gratuit de 15 minutes (visio ou sur place), stratégie, pratique accompagnée, suivi.
 - [Questions fréquentes](https://pavielalexandre.com/#faq) : niveau débutant accepté sans prérequis en code ; exercices concrets et tutorat ; certifications RS6776, RS7283, RS7344 ; démarrage par message WhatsApp.
 
 ## Contact
