@@ -1,0 +1,34 @@
+.consent-banner { position: fixed; z-index: 100; left: 24px; bottom: 24px; width: min(600px,calc(100% - 48px)); padding: 22px; border: 1px solid #cbdbe5; border-radius: 20px; background: #fff; color: #111820; box-shadow: 0 12px 50px #1118201a; font: 14px/1.5 "Onest",Arial,sans-serif; }
+.consent-banner[hidden], .consent-video[hidden] { display: none !important; }
+.consent-banner h2 { margin: 0 0 8px; font: 600 21px/1.1 "Gabarito",Arial,sans-serif; letter-spacing: -.025em; }
+.consent-banner p { margin: 0; max-width: 50ch; }
+.consent-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.consent-button { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 10px 18px; border: 1px solid #0b7f74; border-radius: 999px; background: #fff; color: #0a665e; font: 600 13px/1.2 "Onest",Arial,sans-serif; text-decoration: none; cursor: pointer; }
+.consent-banner .consent-button { flex: 1 1 160px; }
+.consent-button:hover { background: #e9f2ef; }
+.consent-button:active { background: #d8ebe4; }
+.consent-button:focus-visible, .consent-banner a:focus-visible, [data-cookie-open]:focus-visible { outline: 2px solid #0b7f74; outline-offset: 4px; }
+.consent-banner .consent-more { display: inline-block; margin-top: 14px; color: #526572; font-size: 12px; text-underline-offset: 3px; }
+.consent-video { display: grid; align-content: center; justify-items: center; gap: 12px; min-height: 100%; padding: clamp(18px,3vw,36px); text-align: center; color: #edf4fb; }
+.consent-video h4 { margin: 0; font: 600 clamp(19px,2vw,27px)/1.1 "Gabarito",Arial,sans-serif; }
+.consent-video p { max-width: 44ch; margin: 0; color: #c3ced8; font: 13px/1.5 "Onest",Arial,sans-serif; }
+.consent-video .consent-actions { justify-content: center; margin-top: 4px; }
+.consent-video a { align-self: center; color: #edf4fb; font: 13px "Onest",Arial,sans-serif; text-underline-offset: 4px; }
+.certification-demo__player { position: relative; }
+.certification-demo__player.is-enabled iframe { position: absolute; inset: 0; }
+.legal-links { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-top: 36px; padding-top: 24px; border-top: 1px solid #cfdae3; font: 12px/1.5 "Onest",Arial,sans-serif; }
+.legal-links a, .legal-links button { color: inherit; }
+.legal-links button { padding: 0; border: 0; background: transparent; font: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.contact__privacy { font-size: 12px; line-height: 1.6; color: #415566; }
+.contact__privacy a { color: inherit; text-underline-offset: 3px; }
+.contact__ready { display: inline-flex; margin-top: 12px; font-weight: 600; color: #111820; text-underline-offset: 4px; }
+@media(max-width:540px) { .consent-banner { left: 12px; bottom: 12px; width: calc(100% - 24px); padding: 18px; }.consent-banner .consent-button { flex-basis: 0; padding-inline: 10px; font-size: 12px; }.consent-actions { gap: 8px; } }
+
+/* Compact choice bar; the consent and withdrawal mechanisms stay unchanged. */
+.consent-banner { display: flex; align-items: center; gap: 14px; left: 14px; bottom: 14px; width: min(650px,calc(100% - 28px)); padding: 11px 14px; border-radius: 12px; box-shadow: 0 4px 24px #11182012; font-size: 12px; line-height: 1.4; }
+.consent-banner h2 { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.consent-banner p { flex: 1; max-width: 31ch; }
+.consent-banner .consent-actions { flex: none; flex-wrap: nowrap; gap: 7px; margin: 0; }
+.consent-banner .consent-button { flex: none; min-height: 44px; padding: 8px 13px; font-size: 12px; }
+.consent-banner .consent-more { display: inline; margin: 0; font-size: 12px; color: #0a665e; }
+@media(max-width:540px) { .consent-banner { display: grid; gap: 7px; left: 10px; bottom: 10px; width: calc(100% - 20px); padding: 10px 12px; }.consent-banner p { max-width: none; font-size: 12px; }.consent-banner .consent-actions { justify-content: end; }.consent-banner .consent-button { min-height: 44px; padding-inline: 14px; }.consent-banner .consent-more { font-size: 11px; } }

@@ -1,0 +1,62 @@
+/* Targeted revisions requested by Alexandre, 26 November 2026. */
+#work.offers-catalog.offers-deck .work__stage { min-height: 790px; }
+#work.offers-catalog.offers-deck h2 { top: 30px; bottom: auto; left: var(--space-1); right: auto; font-size: clamp(56px,7.5vw,128px); line-height: 1; letter-spacing: -.055em; z-index: 4; }
+#work.offers-catalog.offers-deck .offers-catalog__eyebrow { display: none; }
+#work.offers-catalog.offers-deck .work__lead { top: 190px; }
+#work.offers-catalog.offers-deck .work__window { top: 60%; width: min(26vw,calc((100svh - var(--header-height,78px) - 380px) * .75)); min-width: 220px; }
+#work.offers-catalog.offers-deck .offers-navigation { top: 43%; }
+
+#outils .tools-atelier__head { margin-bottom: 20px; }
+#outils .tools-controls { display: flex; align-items: center; justify-content: end; gap: 8px; margin-bottom: 12px; }
+#outils .tools-controls[hidden] { display: none; }
+#outils .tools-controls button { min-width: 44px; min-height: 44px; padding: 8px 14px; border: 1px solid #9bb6bd; border-radius: 24px; background: transparent; color: #111820; font: 600 12px/1.2 var(--font-2); cursor: pointer; }
+#outils .tools-controls button:hover { background: #dfede9; }
+#outils .tools-controls button:focus-visible, #outils .tools-rail:focus-visible { outline: 3px solid #0b7f74; outline-offset: 4px; }
+#outils .tools-rail { overflow-x: auto; overflow-y: hidden; scrollbar-width: thin; scrollbar-color: #8ba9ad transparent; padding: 12px 0 20px; overscroll-behavior-x: contain; }
+#outils .tools-rail__track { display: flex; gap: 24px; width: max-content; }
+#outils .tools-rail__list { display: flex; gap: 24px; width: max-content; margin: 0; padding: 0; list-style: none; }
+#outils .tools-rail__list > li { flex: 0 0 190px; width: 190px; }
+#outils .tool-sketch__drawing { height: 174px; aspect-ratio: auto; padding: 10px; animation: tool-drift 5.8s ease-in-out infinite alternate; }
+#outils .tools-rail__list > li:nth-child(3n+2) .tool-sketch__drawing { animation-delay: -2s; animation-duration: 6.5s; }
+#outils .tools-rail__list > li:nth-child(3n) .tool-sketch__drawing { animation-delay: -4s; }
+#outils:not(.tools-is-moving) .tool-sketch__drawing { animation-play-state: paused; }
+#outils img { width: 150px; height: 150px; object-fit: contain; }
+#outils .tool-sketch:hover img { transform: scale(1.06) rotate(-3deg); }
+@keyframes tool-drift { from { transform: translateY(3px) rotate(-1deg); } to { transform: translateY(-5px) rotate(1.5deg); } }
+
+#capabilities .service--certification { position: relative; top: auto; grid-template-columns: minmax(0,1fr); height: auto; min-height: 0; gap: 28px; scroll-margin-top: calc(var(--header-height,78px) + 20px); }
+#capabilities .service--certification .service__text { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 12px 34px; }
+#capabilities .service--certification h3 { grid-column: 1; grid-row: 1 / 3; font-size: clamp(32px,3.2vw,52px); }
+#capabilities .service--certification .service__line { grid-column: 2; font-size: clamp(16px,1.5vw,21px); }
+#capabilities .service--certification .service__tags { grid-column: 2; margin: 0; padding: 0; }
+#capabilities .service--certification .service__tags a { display: inline-flex; align-items: center; min-height: 34px; color: inherit; text-decoration: none; }
+#capabilities .service--certification a:focus-visible { outline: 3px solid #0b7f74; outline-offset: 3px; }
+#capabilities .service--certification .service__media { height: auto; aspect-ratio: auto; background: #edf4fb; animation: none; clip-path: none; opacity: 1; }
+#capabilities .service--certification .service__media > a { display: block; color: #0a665e; text-decoration: none; }
+#capabilities .service--certification .service__media img { display: block; width: 100%; height: auto; aspect-ratio: 16/9; object-fit: contain; animation: none; scale: 1; transform: none; translate: none; }
+.certification-zoom { display: flex; min-height: 44px; justify-content: end; align-items: center; padding: 10px 16px; font-size: 12px; font-weight: 600; }
+#faq { padding-block: clamp(55px,6vw,90px); }
+#faq .faq__item summary { min-height: 64px; padding-block: 18px; font-size: clamp(16px,1.5vw,22px); }
+#faq .faq__answer { max-width: 66ch; font-size: 15px; line-height: 1.6; padding-bottom: 20px; }
+
+@media(min-width:700px) and (max-width:1099px) {
+ #work.offers-catalog.offers-deck .work__window { top: 59%; width: min(32vw,330px); }
+ #work.offers-catalog.offers-deck h2 { font-size: clamp(52px,8vw,80px); }
+ #work.offers-catalog.offers-deck .work__lead { top: 170px; }
+}
+@media(max-width:699px) {
+ #work.offers-catalog.offers-deck .work__stage { min-height: 760px; padding-top: 190px; padding-bottom: 210px; }
+ #work.offers-catalog.offers-deck h2 { top: 22px; bottom: auto; font-size: clamp(42px,12vw,64px); }
+ #work.offers-catalog.offers-deck .work__lead { top: 84px; }
+ #work.offers-catalog.offers-deck .work__window { top: auto; left: auto; width: min(60vw,300px); min-width: 0; margin-top: 65px; }
+ #work.offers-catalog.offers-deck .offers-navigation { top: auto; bottom: 30px; }
+ #outils .tools-rail__list > li { flex-basis: 146px; width: 146px; }
+ #outils .tool-sketch__drawing { height: 140px; padding: 5px; }
+ #outils img { width: 125px; height: 125px; }
+ #capabilities .service--certification .service__text { display: flex; }
+ #capabilities .service--certification .service__tags a { min-height: 44px; }
+}
+@media(prefers-reduced-motion:reduce) {
+ #outils .tool-sketch__drawing { animation: none; }
+ #outils .tool-sketch:hover img { transform: none; }
+}

@@ -1,0 +1,13 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+node_modules/
+.playwright-cli/
+output/
+*.log
+
+# Versions de médias conservées localement et non utilisées par le site
+/assets/images/atelier-agents-ia-presentation.webp
+/assets/images/portrait-alexandre-paviel.webp
+/assets/videos/atelier-agents-ia-presentation.mp4
