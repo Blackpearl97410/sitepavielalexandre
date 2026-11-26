@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Pages publiques de pavielalexandre.com. Résumé lisible par les assistants IA : /llms.txt -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://pavielalexandre.com/</loc><lastmod>2026-11-26</lastmod><priority>1.0</priority></url>
+  <url><loc>https://pavielalexandre.com/mentions-legales.html</loc><lastmod>2026-11-26</lastmod><priority>0.2</priority></url>
+  <url><loc>https://pavielalexandre.com/cgv.html</loc><lastmod>2026-11-26</lastmod><priority>0.3</priority></url>
+  <url><loc>https://pavielalexandre.com/cgu.html</loc><lastmod>2026-11-26</lastmod><priority>0.2</priority></url>
+  <url><loc>https://pavielalexandre.com/confidentialite.html</loc><lastmod>2026-11-26</lastmod><priority>0.2</priority></url>
+  <url><loc>https://pavielalexandre.com/cookies.html</loc><lastmod>2026-11-26</lastmod><priority>0.1</priority></url>
+</urlset>
