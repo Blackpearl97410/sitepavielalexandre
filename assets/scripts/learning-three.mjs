@@ -1,6 +1,6 @@
 import * as THREE from '../vendor/three/three.module.mjs';
 
-export async function createLearningScene({ demo, toggle, steps }) {
+export async function createLearningScene({ demo, toggle, steps, onFallback }) {
   const canvas = document.createElement('canvas');
   const context = canvas.getContext('webgl2', { alpha: true, antialias: true });
   if (!context) return null;
@@ -11,7 +11,7 @@ export async function createLearningScene({ demo, toggle, steps }) {
   renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
   renderer.setClearColor(0x000000, 0);
   renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.shadowMap.type = THREE.PCFShadowMap;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.15;
   const scene = new THREE.Scene();
@@ -26,6 +26,7 @@ export async function createLearningScene({ demo, toggle, steps }) {
   Object.assign(key.shadow.camera, { left: -7, right: 7, top: 8, bottom: -7, near: .5, far: 30 });
   key.shadow.bias = -.0005;
   key.shadow.normalBias = .025;
+  key.shadow.radius = 3;
   scene.add(key);
   const fill = new THREE.DirectionalLight(0xc5e6f0, 1.5);
   fill.position.set(6, 5, -6);
@@ -132,32 +133,35 @@ export async function createLearningScene({ demo, toggle, steps }) {
     const face = new THREE.Mesh(faceGeometry, faceMaterial); face.rotation.x = -Math.PI / 2;
     face.position.y = .122; face.receiveShadow = true; group.add(face);
     const symbol = icon(index); group.add(symbol);
-    return { group, symbol, material, faceMaterial };
+    return { group, symbol, material, faceMaterial, emphasis: index === 0 ? 1 : 0 };
   });
   const plinth = slab(rounded(4.4, 3.3, .5), .08, new THREE.MeshStandardMaterial({ color: 0xe0ecee, roughness: .85 }));
   plinth.position.y = -.1; assembly.add(plinth);
   const grid = new THREE.GridHelper(8, 24, 0xbdd4d7, 0xcbdfe1);
   grid.position.y = -.18; grid.material.transparent = true; grid.material.opacity = .22; scene.add(grid);
-  const ground = new THREE.Mesh(new THREE.PlaneGeometry(25, 25), new THREE.ShadowMaterial({ opacity: .14 }));
+  const ground = new THREE.Mesh(new THREE.PlaneGeometry(25, 25), new THREE.ShadowMaterial({ opacity: .1 }));
   ground.rotation.x = -Math.PI / 2; ground.position.y = -.2; ground.receiveShadow = true; scene.add(ground);
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   let open = demo.classList.contains('is-open'), selected = 0, progress = open ? 1 : 0;
   let yaw = 0, targetYaw = 0, pitch = 0, targetPitch = 0, frame = 0, last = 0;
   let visible = true, disposed = false, width = 1, height = 1;
   const selectedColor = new THREE.Color('#c1eadb'), plainColor = new THREE.Color('#ffffff');
+  const selectedBody = new THREE.Color('#7ab6a5'), plainBody = new THREE.Color('#dcece6');
   function pose() {
-    cards.forEach(({ group, symbol, material, faceMaterial }, i) => {
-      group.position.set((i - 2) * -.07 * progress, .25 + (4 - i) * (.18 + progress * .62), (i - 2) * .5 * progress);
+    cards.forEach(({ group, symbol, material, faceMaterial, emphasis }, i) => {
+      group.position.set((i - 2) * -.07 * progress, .25 + (4 - i) * (.27 + progress * .83), (i - 2) * .65 * progress);
+      group.position.x += .45 * progress * emphasis;
+      group.position.z += .95 * progress * emphasis;
       group.rotation.y = (i - 2) * .025 * progress;
       symbol.scale.setScalar(i === 0 ? 1 : .04 + progress * .96);
-      material.color.set(i === selected ? '#7ab6a5' : '#dcece6');
-      faceMaterial.color.copy(i === selected ? selectedColor : plainColor);
+      material.color.copy(plainBody).lerp(selectedBody, emphasis);
+      faceMaterial.color.copy(plainColor).lerp(selectedColor, emphasis);
     });
     assembly.rotation.set(pitch, -.18 + yaw, 0);
-    const viewHeight = 4.9 + progress * 2.4;
+    const viewHeight = 5.25 + progress * 3.55;
     camera.left = -viewHeight * width / height / 2; camera.right = -camera.left;
     camera.top = viewHeight / 2; camera.bottom = -camera.top;
-    const target = new THREE.Vector3(0, .55 + progress * 1.15, 0);
+    const target = new THREE.Vector3(0, .75 + progress * 1.55, 0);
     camera.position.copy(target).add(new THREE.Vector3(5, 8, 11)); camera.lookAt(target);
     camera.updateProjectionMatrix();
   }
@@ -166,6 +170,11 @@ export async function createLearningScene({ demo, toggle, steps }) {
     if (disposed || !visible || document.hidden) return;
     const dt = Math.min((now - (last || now)) / 1000, .05); last = now;
     const target = open ? 1 : 0;
+    cards.forEach((card, i) => {
+      const emphasis = i === selected ? 1 : 0;
+      card.emphasis = reduced.matches ? emphasis : THREE.MathUtils.damp(card.emphasis, emphasis, 8, dt);
+      if (Math.abs(card.emphasis - emphasis) < .001) card.emphasis = emphasis;
+    });
     if (reduced.matches) { progress = target; yaw = 0; pitch = 0; }
     else {
       progress = THREE.MathUtils.damp(progress, target, 7, dt);
@@ -174,7 +183,7 @@ export async function createLearningScene({ demo, toggle, steps }) {
     }
     if (Math.abs(progress - target) < .001) progress = target;
     pose(); renderer.render(scene, camera);
-    if (!reduced.matches && (Math.abs(progress - target) > .001 || Math.abs(yaw - targetYaw) > .001 || Math.abs(pitch - targetPitch) > .001)) frame = requestAnimationFrame(draw);
+    if (!reduced.matches && (Math.abs(progress - target) > .001 || Math.abs(yaw - targetYaw) > .001 || Math.abs(pitch - targetPitch) > .001 || cards.some((card, i) => card.emphasis !== (i === selected ? 1 : 0)))) frame = requestAnimationFrame(draw);
   }
   function request() {
     if (!frame && !disposed && visible && !document.hidden) { last = 0; frame = requestAnimationFrame(draw); }
@@ -189,6 +198,7 @@ export async function createLearningScene({ demo, toggle, steps }) {
     demo.classList.remove('has-webgl'); canvas.remove();
     scene.traverse(obj => { obj.geometry?.dispose(); if (obj.material) { obj.material.map?.dispose(); obj.material.dispose(); } });
     renderer.dispose();
+    onFallback?.();
   }
   canvas.addEventListener('webglcontextlost', event => { event.preventDefault(); restoreFallback(); });
   toggle.prepend(canvas); demo.classList.add('has-webgl');
