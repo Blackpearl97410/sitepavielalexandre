@@ -1,0 +1,7 @@
+# pavielalexandre.com — tous les robots sont admis.
+# Plan du site XML : https://pavielalexandre.com/sitemap.xml
+# Résumé pour assistants IA : https://pavielalexandre.com/llms.txt
+User-agent: *
+Allow: /
+
+Sitemap: https://pavielalexandre.com/sitemap.xml

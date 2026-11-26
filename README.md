@@ -34,6 +34,13 @@ Le lecteur YouTube est chargé uniquement après accord. Le choix peut être mod
 
 Version vérifiée localement sur ordinateur et mobile. Le site est publié avec GitHub Pages depuis `main` à la racine du dépôt. Le fichier `CNAME` réserve `pavielalexandre.com` pour ce site. Le pointage DNS et le certificat HTTPS doivent être validés dans les réglages Pages avant de considérer le domaine comme raccordé. Les informations légales relatives à l’adresse professionnelle complète, à l’hébergeur retenu et au médiateur désigné restent à compléter avant exploitation publique.
 
+## Référencement (SEO et GEO)
+
+- `index.html` porte la balise canonique, l’image de partage `assets/images/og-alexandre-paviel.jpg` (1200 × 630) et des données structurées JSON-LD (WebSite, Person, ProfessionalService avec les huit offres, FAQPage). Toute modification d’une offre ou d’une réponse de la FAQ doit être reportée dans ce bloc et dans `llms.txt`.
+- `robots.txt`, `sitemap.xml` (dates `lastmod` à mettre à jour) et `llms.txt` (résumé factuel pour les assistants IA) sont à la racine.
+- `favicon.ico`, `favicon-48.png` et `apple-touch-icon.png` remplacent l’icône intégrée. `404.html` sert les adresses inconnues.
+- `index.gsap.html` est marqué `noindex` pour éviter un doublon de la page principale.
+
 ## Licence
 
 Adaptation du gabarit [8B — Design Studio Website Template](https://github.com/8bsite/design-studio-website-template), sous licence MIT. Voir [LICENSE](LICENSE) et [CREDITS.md](CREDITS.md).
