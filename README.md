@@ -38,6 +38,8 @@ L’Action **Compilation** exécute uniquement ce build sur les PR vers `main`, 
 
 Les huit offres sont présentées en éventail avec commandes manuelles, rotation automatique et pause. Une grille complète reste accessible. Les animations respectent la préférence de réduction des mouvements.
 
+Sur écran tactile, un balayage horizontal sur la carte passe à l’offre suivante ou précédente. Le défilement vertical et le zoom restent natifs. Le geste est désactivé dans la grille et pendant la lecture des détails ; un simple appui conserve l’ouverture « En savoir plus ».
+
 Les treize outils défilent horizontalement, avec des commandes accessibles et une pause. La FAQ comporte cinq questions courtes. L’infographie des trois parcours RS peut être agrandie.
 
 Le lecteur YouTube est chargé uniquement après accord. Le choix peut être modifié depuis « Mes choix cookies ». Le formulaire de contact prépare un email dans la messagerie du visiteur ; il ne transmet pas de message automatiquement.
