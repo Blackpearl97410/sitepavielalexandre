@@ -1041,6 +1041,7 @@ body { background: var(--halden-paper); color: var(--halden-ink); }
 .message-cta { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 22px; min-height: 56px; border-radius: 999px; text-decoration: none; font-size: 15px; font-weight: 600; transition: transform .2s, box-shadow .2s; }
 .message-cta svg { width: 24px; height: 24px; flex: none; }
 .message-cta--whatsapp { background: #086c55; color: #fff; }
+.message-cta--email { background: #fff; color: #111820; border: 1px solid #c4d3df; }
 .message-cta--discord { background: #fff; color: #323b91; border: 1px solid #c3c8e6; }
 .message-cta:hover { transform: translateY(-3px); box-shadow: 0 9px 20px #11182015; }
 .message-invite__number { color: #425e50; }
@@ -1301,6 +1302,7 @@ main > section { scroll-margin-top: calc(var(--header-height) + 16px); }
 .signature__cta:hover { background: var(--color-3); transform: translateY(-2px); }
 .signature__cta:active { transform: translateY(0); }
 .signature__discord { display: inline-flex; gap: 16px; align-items: center; margin-top: 18px; font-size: 12px; text-underline-offset: 4px; }
+.signature__email { display: flex; gap: 16px; align-items: center; min-height: 44px; margin-top: 8px; font-size: 12px; text-underline-offset: 4px; }
 .signature a:focus-visible { outline: 2px solid var(--color-3); outline-offset: 5px; }
 .signature__cursor { position: absolute; z-index: 10; left: 0; top: 0; display: none; width: 30px; height: 30px; margin: -15px 0 0 -15px; border: 1px solid var(--color-3); border-radius: 50%; pointer-events: none; transition: width .18s,height .18s,margin .18s,opacity .15s; }
 .signature__cursor > span { position: absolute; left: 50%; top: 50%; width: 7px; height: 7px; border-radius: 50%; background: var(--color-3); transform: translate(-50%,-50%); }
@@ -1363,12 +1365,13 @@ main > section { scroll-margin-top: calc(var(--header-height) + 16px); }
 @media(min-width:900px) { #footer .footer__grid { grid-template-columns: repeat(3,minmax(0,1fr)); } }
 </style>
 <link rel="stylesheet" href="assets/styles/learning-scene.css">
+<link rel="stylesheet" href="assets/styles/learning-three.css?v=20261126-readable-2">
 <link rel="stylesheet" href="assets/styles/offers-scroll.css?v=20261126-swipe-1">
-<script src="assets/scripts/learning-scene.js?v=compact-20261126" defer></script>
-<link rel="stylesheet" href="assets/styles/sections-compact.css?v=20261126-3">
+<script src="assets/scripts/learning-scene.js?v=three-20261126-readable-3" defer></script>
+<link rel="stylesheet" href="assets/styles/sections-compact.css?v=20261126-tools-touch-4">
 <link rel="stylesheet" href="assets/styles/service-visuals.css?v=20261126-1">
 <script src="assets/scripts/service-visuals.js?v=20261126-1" defer></script>
-<script src="assets/scripts/tools-rail.js?v=20261126-2" defer></script>
+<script src="assets/scripts/tools-rail.js?v=20261126-touch-3" defer></script>
 <script data-8b-part="motion-gate">
 if (matchMedia('(prefers-reduced-motion: no-preference)').matches && CSS.supports('animation-timeline: view()')) document.documentElement.setAttribute('data-8b-live', '');
 </script>
@@ -1398,7 +1401,7 @@ if (matchMedia('(prefers-reduced-motion: no-preference)').matches && CSS.support
       <li><a href="#temoignages">Témoignages<span class="m-dot" aria-hidden="true"></span></a></li>
       <li><a href="#contact">Contact<span class="m-dot" aria-hidden="true"></span></a></li>
     </ul>
-    <p class="m-text menu__foot">unisonore@gmail.com · La Possession, La Réunion</p>
+    <p class="m-text menu__foot"><a href="mailto:unisonore@gmail.com">unisonore@gmail.com</a> · La Possession, La Réunion</p>
   </div>
 </header>
 <main id="main">
@@ -1608,7 +1611,7 @@ if (matchMedia('(prefers-reduced-motion: no-preference)').matches && CSS.support
   <h2 class="m-text-3" id="message-invite-title">Tout commence<br>par un message<span class="m-dot" aria-hidden="true"></span></h2>
   <p class="m-text-5">Envie de vous former à l’IA ? Parlez-moi de votre activité, de votre niveau et de ce que vous aimeriez apprendre.</p>
   <ul class="message-invite__topics" aria-label="Les points à aborder"><li>Votre activité</li><li>Votre niveau</li><li>Votre objectif</li></ul>
-  <div class="message-invite__ctas"><a class="message-cta message-cta--whatsapp" href="https://wa.me/262693313593?text=Bonjour%20Alexandre%2C%20je%20souhaite%20me%20former%20%C3%A0%20l%E2%80%99IA.%20Pourrions-nous%20%C3%A9changer%20sur%20mon%20projet%20%3F" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-11.7 7.1L4 20l1.4-4.3A8 8 0 1 1 20 11.5Z"/><path d="M8.5 7.5c-.8.5-.6 2.6 1.2 4.6s3.9 2.9 4.8 2.1l.8-1.2-2-1-1 .7a7 7 0 0 1-2.8-2.8l.6-.9-1-1.8Z"/></svg><span>Écrire sur WhatsApp</span><span aria-hidden="true">↗</span></a><a class="message-cta message-cta--discord" href="https://discord.com/users/1536385353181691914" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.7 5.7a18 18 0 0 0-4.2-1.3l-.5 1a15 15 0 0 0-6 0l-.5-1a18 18 0 0 0-4.2 1.3C1.8 9.5 1.1 13.2 1.5 17a17 17 0 0 0 5.1 2.6l1-1.7-1.6-.8.4-.3a12.7 12.7 0 0 0 11.2 0l.4.3-1.6.8 1 1.7a17 17 0 0 0 5.1-2.6c.4-4.4-.8-8.1-2.8-11.3ZM8.5 14.7c-1 0-1.7-.9-1.7-2s.7-2 1.7-2 1.7.9 1.7 2-.8 2-1.7 2Zm7 0c-1 0-1.7-.9-1.7-2s.7-2 1.7-2 1.7.9 1.7 2-.8 2-1.7 2Z"/></svg><span>Me retrouver sur Discord</span><span aria-hidden="true">↗</span></a></div>
+  <div class="message-invite__ctas"><a class="message-cta message-cta--whatsapp" href="https://wa.me/262693313593?text=Bonjour%20Alexandre%2C%20je%20souhaite%20me%20former%20%C3%A0%20l%E2%80%99IA.%20Pourrions-nous%20%C3%A9changer%20sur%20mon%20projet%20%3F" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-11.7 7.1L4 20l1.4-4.3A8 8 0 1 1 20 11.5Z"/><path d="M8.5 7.5c-.8.5-.6 2.6 1.2 4.6s3.9 2.9 4.8 2.1l.8-1.2-2-1-1 .7a7 7 0 0 1-2.8-2.8l.6-.9-1-1.8Z"/></svg><span>Écrire sur WhatsApp</span><span aria-hidden="true">↗</span></a><a class="message-cta message-cta--discord" href="https://discord.com/users/1536385353181691914" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.7 5.7a18 18 0 0 0-4.2-1.3l-.5 1a15 15 0 0 0-6 0l-.5-1a18 18 0 0 0-4.2 1.3C1.8 9.5 1.1 13.2 1.5 17a17 17 0 0 0 5.1 2.6l1-1.7-1.6-.8.4-.3a12.7 12.7 0 0 0 11.2 0l.4.3-1.6.8 1 1.7a17 17 0 0 0 5.1-2.6c.4-4.4-.8-8.1-2.8-11.3ZM8.5 14.7c-1 0-1.7-.9-1.7-2s.7-2 1.7-2 1.7.9 1.7 2-.8 2-1.7 2Zm7 0c-1 0-1.7-.9-1.7-2s.7-2 1.7-2 1.7.9 1.7 2-.8 2-1.7 2Z"/></svg><span>Me retrouver sur Discord</span><span aria-hidden="true">↗</span></a><a class="message-cta message-cta--email" href="mailto:unisonore@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 6 9 7 9-7"/></svg><span>Écrire par email</span><span aria-hidden="true">↗</span></a></div>
   <p class="m-text-6 message-invite__number">WhatsApp · +262 693 31 35 93</p>
  </div>
  <div class="phone-demo">
@@ -1722,9 +1725,9 @@ if (matchMedia('(prefers-reduced-motion: no-preference)').matches && CSS.support
     <div class="signature__scene">
       <h2 id="signature-name" class="signature__name footer__word"><span>Alexandre</span><span>Paviel</span></h2>
       <div class="signature__ink" aria-hidden="true"><div class="signature__name"><span>Alexandre</span><span>Paviel</span></div></div>
-      <div class="signature__portrait footer__period"><span class="footer__aperture"><img class="footer__img" src="assets/images/portrait-alexandre-paviel-detoure.webp" width="1024" height="1536" alt="Alexandre Paviel, formateur et consultant IA" loading="lazy"><span class="signature__paint" aria-hidden="true"><img class="footer__img" src="assets/images/portrait-alexandre-paviel-detoure.webp" width="1024" height="1536" alt="" loading="lazy"></span><span class="footer__tint"></span></span></div>
+      <div class="signature__portrait footer__period"><span class="footer__aperture"><img class="footer__img" src="assets/images/portrait-alexandre-paviel-veste-grise-detoure.webp" width="1086" height="1448" alt="Alexandre Paviel, formateur et consultant IA" loading="lazy"><span class="signature__paint" aria-hidden="true"><img class="footer__img" src="assets/images/portrait-alexandre-paviel-veste-grise-detoure.webp" width="1086" height="1448" alt="" loading="lazy"></span><span class="footer__tint"></span></span></div>
       <div class="signature__intro"><p class="signature__roles">Former <span>/</span> Créer <span>/</span> Transmettre</p><p class="signature__message">L’IA prend tout son sens <br>quand vous la pratiquez.</p><p class="m-text-6 signature__location">La Réunion · À distance et en présentiel</p></div>
-      <div class="signature__contact"><p>Et si on partait <br>de votre idée ?</p><a class="signature__cta" href="https://wa.me/262693313593?text=Bonjour%20Alexandre%2C%20je%20souhaite%20%C3%A9changer%20sur%20une%20formation%20IA." target="_blank" rel="noopener">Parlons-en sur WhatsApp <span aria-hidden="true">↗</span></a><a class="signature__discord" href="https://discord.com/users/1536385353181691914" target="_blank" rel="noopener">Ou sur Discord <span aria-hidden="true">↗</span></a></div>
+      <div class="signature__contact"><p>Et si on partait <br>de votre idée ?</p><a class="signature__cta" href="https://wa.me/262693313593?text=Bonjour%20Alexandre%2C%20je%20souhaite%20%C3%A9changer%20sur%20une%20formation%20IA." target="_blank" rel="noopener">Parlons-en sur WhatsApp <span aria-hidden="true">↗</span></a><a class="signature__discord" href="https://discord.com/users/1536385353181691914" target="_blank" rel="noopener">Ou sur Discord <span aria-hidden="true">↗</span></a><a class="signature__email" href="mailto:unisonore@gmail.com">Ou par email <span aria-hidden="true">↗</span></a></div>
     </div>
     <span class="signature__cursor" aria-hidden="true"><span></span></span>
   </section>
@@ -2038,7 +2041,7 @@ motionKit.scene('hero', () => {
   });
 });
 </script>
-<script data-8b-part="scene-script:work" src="assets/scripts/offers-scroll.js?v=20261126-swipe-1" defer></script>
+<script data-8b-part="scene-script:work" src="assets/scripts/offers-scroll.js?v=20261126-swipe-rapide-2" defer></script>
 <script data-8b-part="scene-script:again">
 motionKit.scene('again', () => {
   const again = document.getElementById('again');
