@@ -2,10 +2,13 @@
 .learning-demo.has-webgl .learning-floor,
 .learning-demo.has-webgl .learning-planes { visibility: hidden; }
 .learning-demo.has-webgl.is-open .learning-webgl { width: 60%; }
+.learning-demo.has-webgl.is-open .learning-toggle { height: 720px; }
+.learning-demo.has-webgl.is-open .learning-map { top: 50%; transform: translateY(-50%); }
 .learning-demo.has-webgl .learning-hint { z-index: 1; }
 .learning-demo.has-webgl .learning-map { z-index: 2; }
 @media (max-width: 540px) {
   .learning-demo.has-webgl.is-open .learning-webgl { width: 100%; }
+  .learning-demo.has-webgl.is-open .learning-map { top: auto; transform: none; }
 }
 @media (forced-colors: active) {
   .learning-demo.has-webgl .learning-webgl { display: none; }

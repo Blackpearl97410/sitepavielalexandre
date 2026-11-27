@@ -109,15 +109,19 @@ export async function createLearningScene({ demo, toggle, steps, onFallback }) {
     return g;
   }
   function labelTexture(index) {
-    const c = document.createElement('canvas'); c.width = 1024; c.height = 640;
+    const c = document.createElement('canvas'); c.width = 1024; c.height = 448;
     const ctx = c.getContext('2d');
-    ctx.fillStyle = '#f8fcfb'; ctx.fillRect(0, 0, 1024, 640);
+    ctx.fillStyle = '#f8fcfb'; ctx.fillRect(0, 0, 1024, 448);
     ctx.strokeStyle = '#d2e5df'; ctx.lineWidth = 3;
-    ctx.beginPath(); ctx.roundRect(24, 24, 976, 592, 38); ctx.stroke();
-    ctx.fillStyle = '#55716d'; ctx.font = '500 36px Onest, sans-serif';
-    ctx.fillText(String(index + 1).padStart(2, '0'), 65, 94);
-    ctx.fillStyle = '#173b37'; ctx.font = '600 48px Gabarito, sans-serif';
-    ctx.textAlign = 'center'; ctx.fillText(steps[index].dataset.title, 512, 549);
+    ctx.beginPath(); ctx.roundRect(20, 20, 984, 408, 32); ctx.stroke();
+    ctx.fillStyle = '#415c56'; ctx.font = '600 34px Onest, sans-serif';
+    ctx.fillText(String(index + 1).padStart(2, '0'), 54, 70);
+    ctx.fillStyle = '#111f1c'; ctx.font = '600 92px Gabarito, sans-serif';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    const words = steps[index].dataset.title.split(' ');
+    const split = words.length === 3 ? 2 : 1;
+    ctx.fillText(words.slice(0, split).join(' '), 688, 169, 530);
+    ctx.fillText(words.slice(split).join(' '), 688, 284, 530);
     const texture = new THREE.CanvasTexture(c); texture.colorSpace = THREE.SRGBColorSpace;
     texture.anisotropy = Math.min(4, renderer.capabilities.getMaxAnisotropy());
     return texture;
@@ -125,14 +129,14 @@ export async function createLearningScene({ demo, toggle, steps, onFallback }) {
   const cards = steps.map((step, index) => {
     const group = new THREE.Group(); assembly.add(group);
     const material = new THREE.MeshStandardMaterial({ color: 0xdcece6, roughness: .4, metalness: .12 });
-    group.add(slab(rounded(3.65, 2.28, .2), .17, material));
-    const faceGeometry = new THREE.ShapeGeometry(rounded(3.58, 2.21, .18), 12);
+    group.add(slab(rounded(3.85, 1.68, .18), .17, material));
+    const faceGeometry = new THREE.ShapeGeometry(rounded(3.78, 1.61, .16), 12);
     const uv = faceGeometry.attributes.uv, pos = faceGeometry.attributes.position;
-    for (let i = 0; i < uv.count; i++) uv.setXY(i, pos.getX(i) / 3.58 + .5, pos.getY(i) / 2.21 + .5);
+    for (let i = 0; i < uv.count; i++) uv.setXY(i, pos.getX(i) / 3.78 + .5, pos.getY(i) / 1.61 + .5);
     const faceMaterial = new THREE.MeshStandardMaterial({ map: labelTexture(index), roughness: .8 });
     const face = new THREE.Mesh(faceGeometry, faceMaterial); face.rotation.x = -Math.PI / 2;
     face.position.y = .122; face.receiveShadow = true; group.add(face);
-    const symbol = icon(index); group.add(symbol);
+    const symbol = icon(index); symbol.position.x = -1.16; group.add(symbol);
     return { group, symbol, material, faceMaterial, emphasis: index === 0 ? 1 : 0 };
   });
   const plinth = slab(rounded(4.4, 3.3, .5), .08, new THREE.MeshStandardMaterial({ color: 0xe0ecee, roughness: .85 }));
@@ -149,20 +153,22 @@ export async function createLearningScene({ demo, toggle, steps, onFallback }) {
   const selectedBody = new THREE.Color('#7ab6a5'), plainBody = new THREE.Color('#dcece6');
   function pose() {
     cards.forEach(({ group, symbol, material, faceMaterial, emphasis }, i) => {
-      group.position.set((i - 2) * -.07 * progress, .25 + (4 - i) * (.27 + progress * .83), (i - 2) * .65 * progress);
-      group.position.x += .45 * progress * emphasis;
-      group.position.z += .95 * progress * emphasis;
-      group.rotation.y = (i - 2) * .025 * progress;
+      group.position.set(0, .25 + (4 - i) * (.27 + progress * 1.28), (i - 2) * .7 * progress);
+      group.position.x += .15 * progress * emphasis;
+      group.position.y += .08 * progress * emphasis;
+      group.position.z += .35 * progress * emphasis;
+      group.rotation.y = (i - 2) * .012 * progress;
       symbol.scale.setScalar(i === 0 ? 1 : .04 + progress * .96);
       material.color.copy(plainBody).lerp(selectedBody, emphasis);
       faceMaterial.color.copy(plainColor).lerp(selectedColor, emphasis);
     });
-    assembly.rotation.set(pitch, -.18 + yaw, 0);
-    const viewHeight = 5.25 + progress * 3.55;
+    assembly.rotation.set(pitch, -.10 + yaw, 0);
+    // Keep the whole assembly inside narrow phone canvases, including its bevels.
+    const viewHeight = Math.max(4.6 + progress * 5.1, (4.8 + progress * .6) * height / width);
     camera.left = -viewHeight * width / height / 2; camera.right = -camera.left;
     camera.top = viewHeight / 2; camera.bottom = -camera.top;
-    const target = new THREE.Vector3(0, .75 + progress * 1.55, 0);
-    camera.position.copy(target).add(new THREE.Vector3(5, 8, 11)); camera.lookAt(target);
+    const target = new THREE.Vector3(0, .8 + progress * 2.3, 0);
+    camera.position.copy(target).add(new THREE.Vector3(1.8, 9, 12)); camera.lookAt(target);
     camera.updateProjectionMatrix();
   }
   function draw(now) {
@@ -210,8 +216,8 @@ export async function createLearningScene({ demo, toggle, steps, onFallback }) {
   toggle.addEventListener('pointermove', event => {
     if (reduced.matches || event.pointerType !== 'mouse') return;
     const bounds = toggle.getBoundingClientRect();
-    targetYaw = ((event.clientX - bounds.left) / bounds.width - .5) * .35;
-    targetPitch = ((event.clientY - bounds.top) / bounds.height - .5) * .08;
+    targetYaw = ((event.clientX - bounds.left) / bounds.width - .5) * .16;
+    targetPitch = ((event.clientY - bounds.top) / bounds.height - .5) * .04;
     request();
   });
   toggle.addEventListener('pointerleave', () => { targetYaw = 0; targetPitch = 0; request(); });
