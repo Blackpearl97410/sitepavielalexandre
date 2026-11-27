@@ -80,6 +80,8 @@ Les treize illustrations sous `assets/images/outils-bd/` ont été créées avec
 
 Inspiration : [Portfolio Hero / Elias, Clevision](https://21st.dev/@clevision/components/elias-author-hero). Adaptation originale en HTML/CSS/JS, sans import du composant React. Le portrait transparent `assets/images/portrait-alexandre-paviel-detoure.webp` est une édition générée avec image_gen à partir de la photographie fournie par Alexandre. PNG source et prompt : `../Assets_Source/Portrait_Signature/`.
 
+Portrait de signature actualisé le 26/11 : photo en veste grise fournie par Alexandre (`Unknown.webp`), détourée avec l’outil image_gen intégré. La version transparente utilisée pour les deux couches de l’effet de couleur est `assets/images/portrait-alexandre-paviel-veste-grise-detoure.webp`. L’original, le PNG et le prompt sont conservés dans `../Assets_Source/Portrait_Signature/`.
+
 ## Cartes des huit offres (25/11/2026)
 
 Les images sous `assets/images/offres/` ont été créées avec image_gen intégré pour Alexandre : format portrait 3:4, texte intégré, objets en volume à texture discrète au crayon colorisé. Référence de matière : le logo outil ChatGPT précédemment généré ; référence de série : la première carte retenue. Originaux sélectionnés et prompts : `../Assets_Source/Offres_IA/visuels-manifeste.json`. Les compositions sont des illustrations des prestations, sans revendication de marque ni de certification obtenue.
@@ -91,6 +93,8 @@ Gabarito et Onest sont conservées sous `assets/fonts/`, à partir des fichiers 
 ## Vue éclatée d’introduction (26/11/2026)
 
 Inspiration : [Syntra Hero, Clevision](https://21st.dev/@clevision/components/syntra-hero). Réalisation originale en CSS/SVG/JavaScript, adaptée aux cinq composantes de l’accompagnement IA. Aucun actif graphique du modèle ni composant React importé. La coloration du portrait de signature est un effet CSS appliqué à la même image détourée déjà créditée.
+
+La vue est désormais enrichie d’une scène WebGL 2 originale : cartes extrudées, cinq symboles modélisés, éclairages, ombres et transitions calculées. Elle utilise [Three.js 0.187.0](https://github.com/mrdoob/three.js), sous licence MIT, conservé localement dans `assets/vendor/three/` avec sa licence et la provenance de l’archive vérifiée. Les extensions de fichiers ont été adaptées en `.mjs` avec l’import du module interne correspondant ; une indentation amont a été normalisée. Le rendu CSS précédent est conservé comme solution de secours.
 
 
 ## Défilement des offres (26/11/2026)

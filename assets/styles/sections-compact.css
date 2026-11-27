@@ -12,7 +12,8 @@
 #outils .tools-controls button { min-width: 44px; min-height: 44px; padding: 8px 14px; border: 1px solid #9bb6bd; border-radius: 24px; background: transparent; color: #111820; font: 600 12px/1.2 var(--font-2); cursor: pointer; }
 #outils .tools-controls button:hover { background: #dfede9; }
 #outils .tools-controls button:focus-visible, #outils .tools-rail:focus-visible { outline: 3px solid #0b7f74; outline-offset: 4px; }
-#outils .tools-rail { overflow-x: auto; overflow-y: hidden; scrollbar-width: thin; scrollbar-color: #8ba9ad transparent; padding: 12px 0 20px; overscroll-behavior-x: contain; }
+#outils .tools-rail { overflow-x: auto; overflow-y: hidden; scrollbar-width: thin; scrollbar-color: #8ba9ad transparent; padding: 12px 0 20px; overscroll-behavior-x: contain; touch-action: auto; scroll-behavior: auto; -webkit-overflow-scrolling: touch; }
+#outils .tools-rail img { -webkit-user-drag: none; user-select: none; }
 #outils .tools-rail__track { display: flex; gap: 24px; width: max-content; }
 #outils .tools-rail__list { display: flex; gap: 24px; width: max-content; margin: 0; padding: 0; list-style: none; }
 #outils .tools-rail__list > li { flex: 0 0 190px; width: 190px; }

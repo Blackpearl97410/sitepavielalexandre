@@ -37,7 +37,7 @@
     const loader = new IntersectionObserver(entries => {
       if (!entries.some(entry => entry.isIntersecting)) return;
       loader.disconnect();
-      import('./learning-three.mjs').then(module => module.createLearningScene({
+      import('./learning-three.mjs?v=readable-3').then(module => module.createLearningScene({
         demo, toggle, steps,
         onFallback() { three = null; setOpen(demo.classList.contains('is-open')); }
       })).then(scene => {
