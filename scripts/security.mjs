@@ -28,7 +28,7 @@ export function protectPage(input) {
     "media-src 'self'",
     "connect-src 'none'",
     'frame-src https://www.youtube-nocookie.com',
-    'form-action mailto:',
+    "form-action 'self' https://formsubmit.co",
     'upgrade-insecure-requests'
   ].join('; ');
   const metadata = `\n<meta http-equiv="Content-Security-Policy" content="${policy}">\n<meta name="referrer" content="strict-origin-when-cross-origin">`;
