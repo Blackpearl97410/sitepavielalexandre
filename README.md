@@ -60,7 +60,9 @@ Sur écran tactile, un balayage horizontal sur la carte passe à l’offre suiva
 
 Les treize outils défilent horizontalement, avec des commandes accessibles et une pause. Un geste tactile, un défilement horizontal au pavé tactile ou une flèche passe en lecture manuelle ; « Reprendre » relance le défilement automatique. L’inertie tactile reste gérée par le navigateur. La FAQ comporte cinq questions courtes. L’infographie des trois parcours RS peut être agrandie.
 
-Le lecteur YouTube est chargé uniquement après accord. Le choix peut être modifié depuis « Mes choix cookies ». Le formulaire de contact prépare un email dans la messagerie du visiteur ; il ne transmet pas de message automatiquement.
+Le lecteur YouTube est chargé uniquement après accord. Le choix peut être modifié depuis « Mes choix cookies ». Le formulaire de contact transmet les champs par POST HTTPS à FormSubmit pour les relayer vers `unisonore@gmail.com`, sans ouvrir la messagerie du visiteur. La vérification anti-robot du service est conservée et un champ leurre limite les robots simples. La page `merci.html` sert de retour après traitement par le service. Le lien email direct reste disponible séparément.
+
+FormSubmit exige une activation initiale de l’adresse destinataire par un email de confirmation. La présence du code ne prouve ni cette activation ni la réception d’un message : ces deux points doivent être vérifiés avant de considérer l’envoi comme opérationnel. Aucun secret SMTP ou jeton privé n’est exposé dans le site. Les informations de confidentialité décrivent le relais tiers et son archivage technique annoncé de 30 jours.
 
 ## État de livraison
 

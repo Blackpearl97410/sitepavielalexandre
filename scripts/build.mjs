@@ -7,7 +7,7 @@ import { protectPage } from './security.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const output = resolve(root, 'dist');
-const requiredPages = ['index.html', 'mentions-legales.html', 'cgv.html', 'cgu.html', 'confidentialite.html', 'cookies.html'];
+const requiredPages = ['index.html', 'mentions-legales.html', 'cgv.html', 'cgu.html', 'confidentialite.html', 'cookies.html', 'merci.html'];
 const rootFiles = new Set([
   ...requiredPages, '404.html', '.nojekyll', 'CNAME', 'LICENSE', 'CREDITS.md',
   'robots.txt', 'sitemap.xml', 'llms.txt', 'favicon.ico', 'favicon-48.png',

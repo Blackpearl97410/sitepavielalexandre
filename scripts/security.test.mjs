@@ -34,7 +34,7 @@ test('une CSP existante et un document mal formé échouent explicitement', () =
 
 test('la politique conserve le contact et YouTube sans autoriser les autres cadres', () => {
   const csp = policy(protectPage('<html><head><meta charset="utf-8"></head></html>'));
-  assert.ok(csp.includes('form-action mailto:'));
+  assert.ok(csp.includes("form-action 'self' https://formsubmit.co"));
   assert.ok(csp.includes('frame-src https://www.youtube-nocookie.com'));
   assert.ok(csp.includes("connect-src 'none'"));
   // These directives require real HTTP headers and must not be faked in a meta.
@@ -61,4 +61,18 @@ test('le dossier publiable exclut gabarit, configuration et rapports', () => {
   const home = readFileSync(dist + 'index.html', 'utf8');
   assert.match(home, /<template><iframe[^>]*data-consent-src=/);
   assert.doesNotMatch(home, /<iframe\b[^>]*\ssrc=/);
+});
+
+test('le formulaire utilise un POST HTTPS, conserve la protection anti-robot et une page de retour', () => {
+  const dist = fileURLToPath(new URL('../dist/', import.meta.url));
+  const home = readFileSync(dist + 'index.html', 'utf8');
+  const form = home.match(/<form class="contact__form[\s\S]*?<\/form>/)[0];
+  assert.match(form, /action="https:\/\/formsubmit\.co\/unisonore@gmail\.com" method="post"/);
+  assert.doesNotMatch(form, /mailto:|novalidate|name="_captcha"/);
+  assert.match(form, /name="_next" value="https:\/\/pavielalexandre\.com\/merci\.html"/);
+  assert.match(form, /name="_honey"/);
+  assert.match(form, /name="email" type="email"[^>]*required/);
+  assert.ok(existsSync(dist + 'merci.html'));
+  const script = home.match(/<script data-8b-part="section-script:contact">([\s\S]*?)<\/script>/)[1];
+  assert.doesNotMatch(script, /mailto:|readyLink|status\.dataset\.success/);
 });

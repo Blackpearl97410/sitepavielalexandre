@@ -1699,20 +1699,24 @@ if (matchMedia('(prefers-reduced-motion: no-preference)').matches && CSS.support
         <div><dt class="m-text-7">La Possession</dt><dd class="m-text">La Réunion</dd><dd class="m-text"><a href="tel:+262693313593">+262 693 31 35 93</a></dd></div>
       </dl>
     </div>
-    <form class="contact__form m-surface" action="mailto:unisonore@gmail.com" method="post" enctype="text/plain" novalidate>
+    <form class="contact__form m-surface" action="https://formsubmit.co/unisonore@gmail.com" method="post">
+      <input type="hidden" name="_subject" value="Nouvelle demande — pavielalexandre.com">
+      <input type="hidden" name="_next" value="https://pavielalexandre.com/merci.html">
+      <input type="hidden" name="_template" value="table">
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
       <div class="contact__pair">
-        <label class="m-text-6">Votre nom<input class="m-field" name="name" type="text" autocomplete="name" required></label>
-        <label class="m-text-6">Email<input class="m-field" name="email" type="email" autocomplete="email" required></label>
+        <label class="m-text-6">Votre nom<input class="m-field" name="name" type="text" autocomplete="name" maxlength="150" required></label>
+        <label class="m-text-6">Email<input class="m-field" name="email" type="email" autocomplete="email" maxlength="254" required></label>
       </div>
       <div class="contact__pair">
-        <label class="m-text-6">Structure<input class="m-field" name="company" type="text" autocomplete="organization"></label>
+        <label class="m-text-6">Structure<input class="m-field" name="company" type="text" autocomplete="organization" maxlength="200"></label>
         <label class="m-text-6">Votre demande<select class="m-field" name="topic"><option>Formation IA</option><option>Accompagnement individualisé IA</option><option>Prise en main d’un outil IA</option><option>Montage vidéo IA</option><option>Site web</option><option>Application en local</option><option>Agent IA</option><option>Workflows et automatisation</option><option>Autre</option></select></label>
       </div>
-      <label class="m-text-6">Quelques mots sur votre projet<textarea class="m-field" name="message" rows="3" required></textarea></label>
-      <p class="contact__privacy">Ces informations servent à préparer votre demande dans votre messagerie. Aucun envoi automatique. <a href="confidentialite.html">Politique de confidentialité</a></p>
+      <label class="m-text-6">Quelques mots sur votre projet<textarea class="m-field" name="message" rows="3" maxlength="5000" required></textarea></label>
+      <p class="contact__privacy">Votre demande est transmise à Alexandre Paviel via FormSubmit. Une vérification anti-robot peut être demandée avant l’envoi. <a href="confidentialite.html">Politique de confidentialité</a></p>
       <div class="contact__actions">
-        <button class="m-btn" type="submit"><span class="m-btn__label">Préparer mon email</span></button>
-        <p class="m-text contact__status" role="status" aria-live="polite" data-success="Votre email est prêt. Ouvrez votre messagerie, puis envoyez le message pour me le transmettre." data-error="Merci d'indiquer votre nom, un email valide et quelques mots sur votre projet."></p>
+        <button class="m-btn" type="submit"><span class="m-btn__label">Envoyer ma demande</span></button>
+        <p class="m-text contact__status" role="status" aria-live="polite" data-error="Merci d'indiquer votre nom, un email valide et quelques mots sur votre projet."></p>
       </div>
     </form>
   </div>
@@ -1792,26 +1796,26 @@ if (matchMedia('(prefers-reduced-motion: no-preference)').matches && CSS.support
 (() => {
   const form = document.querySelector('#contact .contact__form');
   const status = form.querySelector('.contact__status');
-  let readyLink = null;
-  form.addEventListener('input', () => { readyLink?.remove(); readyLink = null; status.textContent = ''; });
+  const button = form.querySelector('button[type="submit"]');
+  let submitting = false;
+  form.addEventListener('input', () => { if (!submitting) status.textContent = ''; });
   form.addEventListener('submit', event => {
-    event.preventDefault();
     if (!form.checkValidity()) {
+      event.preventDefault();
       status.textContent = status.dataset.error;
       form.reportValidity();
       return;
     }
-    const values = new FormData(form);
-    const body = `Bonjour Alexandre,\n\nNom : ${values.get('name')}\nEmail : ${values.get('email')}\nStructure : ${values.get('company') || 'Non précisée'}\nDemande : ${values.get('topic')}\n\n${values.get('message')}`;
-    const href = 'mailto:unisonore@gmail.com?subject=' + encodeURIComponent('Demande — ' + values.get('topic')) + '&body=' + encodeURIComponent(body);
-    readyLink?.remove();
-    readyLink = document.createElement('a');
-    readyLink.className = 'contact__ready';
-    readyLink.href = href;
-    readyLink.textContent = 'Ouvrir ma messagerie ↗';
-    status.textContent = status.dataset.success;
-    status.append(document.createElement('br'), readyLink);
-    readyLink.focus();
+    if (submitting) { event.preventDefault(); return; }
+    submitting = true;
+    button.disabled = true;
+    status.textContent = 'Transmission en cours…';
+    // Native HTTPS POST: the service handles anti-spam and the result page.
+  });
+  addEventListener('pageshow', () => {
+    submitting = false;
+    button.disabled = false;
+    status.textContent = '';
   });
 })();
 </script>
