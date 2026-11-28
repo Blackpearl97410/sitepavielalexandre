@@ -18,11 +18,26 @@ Avec Node.js 24 ou supérieur :
 
 ```sh
 npm run build
+# Build et contrôles de sécurité de la sortie publiable :
+npm run check
 ```
 
 Aucune installation de dépendances n’est nécessaire. Le build prépare `dist/` à partir des pages et médias suivis par Git, vérifie la syntaxe des scripts JavaScript externes et inline, et résout les fichiers locaux requis par le HTML et le CSS. Il ne lance pas les scripts dans un navigateur et ne teste pas les services externes.
 
-L’Action **Compilation** exécute uniquement ce build sur les PR vers `main`, sur les push vers `main` et à la demande. Un seul job, délai maximal de cinq minutes, sans publication ni déploiement. La publication GitHub Pages existante reste indépendante de cette vérification.
+Le build insère dans les pages publiables une CSP et une politique de référent. Les empreintes SHA-256 des scripts inline sont recalculées à chaque build ; les scripts externes doivent venir du site. Le lecteur YouTube conserve son contrôle de consentement. Les styles inline restent autorisés pour les animations existantes. La réponse de vérification Google est conservée telle quelle.
+
+L’Action **Compilation et publication** prépare le build et exécute les contrôles de sécurité sur les PR vers `main`, sur les push vers `main` et à la demande. Sur `main` uniquement, un second job peut publier l’artefact `dist/` via GitHub Pages ; les PR ne disposent pas des permissions de déploiement. Le gabarit `index.gsap.html`, les aperçus, scripts de build et documents de travail sont exclus de l’artefact.
+
+**Activation nécessaire :** le contrôle du 28/11/2026 a confirmé que le dépôt GitHub publie encore la racine de `main` en mode historique. Le workflow préparé ici exige de sélectionner **Settings → Pages → Source → GitHub Actions** et de publier les fichiers de cette correction. Tant que cette bascule et un déploiement réussi ne sont pas vérifiés, la présence de la CSP et l’exclusion du gabarit ne sont pas acquises en ligne.
+
+Pour examiner les fichiers réellement publiables sans navigateur :
+
+```sh
+python3 -m http.server 8765 --bind 127.0.0.1 --directory dist
+curl -I http://127.0.0.1:8765/
+```
+
+La CSP est délivrée par une balise HTML, pas par un en-tête HTTP. HSTS, `X-Content-Type-Options`, `Permissions-Policy` et la protection contre l’intégration en iframe (`frame-ancestors` / `X-Frame-Options`) exigent des en-têtes réels ; ils ne sont pas simulés dans les pages. Leur ajout doit être traité avec la couche d’hébergement qui maîtrise ces en-têtes.
 
 ## Fichiers
 
@@ -49,7 +64,7 @@ Le lecteur YouTube est chargé uniquement après accord. Le choix peut être mod
 
 ## État de livraison
 
-Version vérifiée localement sur ordinateur et mobile. Le site est publié avec GitHub Pages depuis `main` à la racine du dépôt. Le fichier `CNAME` réserve `pavielalexandre.com` pour ce site. Le pointage DNS et le certificat HTTPS doivent être validés dans les réglages Pages avant de considérer le domaine comme raccordé. Les informations légales relatives à l’adresse professionnelle complète, à l’hébergeur retenu et au médiateur désigné restent à compléter avant exploitation publique.
+Le contrôle réseau du 28/11/2026 a confirmé la réponse HTTPS de `pavielalexandre.com`, la redirection HTTP et `www` vers le domaine principal, les DNS GitHub Pages et un certificat valide jusqu’au 24/02/2027. La publication observée utilise encore `main` à la racine. Le fichier `CNAME` est conservé dans `dist/`, et le domaine personnalisé doit rester déclaré dans les réglages Pages lors de la bascule vers Actions. Les corrections de sécurité de cette version ont été contrôlées statiquement, sans nouveau test navigateur. Les informations légales relatives à l’adresse professionnelle complète, à l’hébergeur retenu et au médiateur désigné restent à compléter avant exploitation publique.
 
 ## Référencement (SEO et GEO)
 
