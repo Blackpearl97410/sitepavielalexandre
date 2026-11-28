@@ -1,17 +1,20 @@
-import { cpSync, existsSync, mkdirSync, readFileSync, rmSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { Script } from 'node:vm';
+import { protectPage } from './security.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const output = resolve(root, 'dist');
 const requiredPages = ['index.html', 'mentions-legales.html', 'cgv.html', 'cgu.html', 'confidentialite.html', 'cookies.html'];
-const rootFiles = new Set(['.nojekyll', 'CNAME', 'LICENSE', 'CREDITS.md']);
+const rootFiles = new Set([
+  ...requiredPages, '404.html', '.nojekyll', 'CNAME', 'LICENSE', 'CREDITS.md',
+  'robots.txt', 'sitemap.xml', 'llms.txt', 'favicon.ico', 'favicon-48.png',
+  'apple-touch-icon.png', 'google4b7966b6d89d8450.html'
+]);
 const tracked = execFileSync('git', ['ls-files', '-z'], { cwd: root, encoding: 'utf8' }).split('\0').filter(Boolean);
-const files = tracked.filter(file => rootFiles.has(file) || file.startsWith('assets/') || (
-  !file.includes('/') && file !== 'index.gsap.html' && /\.(?:html|xml|txt|ico|png|jpe?g|webp|avif|gif|svg|webmanifest)$/i.test(file)
-));
+const files = tracked.filter(file => rootFiles.has(file) || file.startsWith('assets/'));
 const pages = files.filter(file => !file.includes('/') && file.endsWith('.html'));
 let scripts = 0;
 
@@ -48,7 +51,12 @@ try {
   }
   const modules = new Set();
   for (const page of pages) {
-    const source = readFileSync(resolve(output, page), 'utf8');
+    let source = readFileSync(resolve(output, page), 'utf8');
+    // Google's verification response is plain text despite its .html extension.
+    if (page !== 'google4b7966b6d89d8450.html') {
+      source = protectPage(source);
+      writeFileSync(resolve(output, page), source);
+    }
     for (const [, attributes, body] of source.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script\s*>/gi)) {
       const type = attributes.match(/\btype\s*=\s*["']([^"']+)["']/i)?.[1]?.toLowerCase() || '';
       const src = attributes.match(/\bsrc\s*=\s*["']([^"']+)["']/i)?.[1];
